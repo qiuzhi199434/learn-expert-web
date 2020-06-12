@@ -255,6 +255,84 @@ git 远程仓库同步
 
 函数式编程：纯函数、函数柯里化、高阶函数
 bind 及 promise 源码解析
-EventLoop、宏任务、微任务.
+EventLoop、宏任务、微任务
+
+Web安全实战
+
+·安全意义与常见Web项目相关的漏洞原理解析与防御
+·XSS漏洞
+·CSRF 漏洞
+·SQL注入
+·Cookie安全策略
+·点击劫持
+·传输安全和HTTPS加密
+
+前端工程化
+
+·前端工程化发展史
+·前端生态工具:Webpack、Babel、Eslint、⋯Webpack进阶
+
+错误监控收集
+·前端报错收集实战
+webpack源码
+·手写webpack源码
+
+全栈基石—Node.js
+
+Nodejs 入门
+·非阻塞IO·事件驱动·node历史·常见并发方式对比·模块(CommonJS)·内建模块·第三方模块·自定义模块·核心API·fs·buffer·http·stream·实现一个简易Express
+
+Ant-Nodejs异步
+·Promise co async/await 异步fn/client/server cb Events Timer （io/fs/pure ）
+
+Node.js 进程
+·进程与线程
+
+Node.js io & 网络
+·Node.js IO (fs/net/stream) io & 网络层 WebServer，源利用的爬虫实现 介绍通识（链接）：4、7层协议，然后实现4、7提供 http、socket、ws等能力。 各种协议的cs实现、高效资
+
+常见数据库、缓存
+·选型策略 爬虫项目数据落地 ：MySQL、MongoDB、Redis·数据库关联设计 一对多 多对多
+
+Web开发
+·koa实战·中间件原理·模板引擎·鉴权 cookie 和token·restful的api设计·eggjs和mvc分层
+
+同构应用
+·传统渲染模式与新时期的同构开发 、简单聊聊异构渲染
+
+koa和egg 源码剖析
+·手写koa2源码·手写中间件机制·仿照eggjs 手写 mvc开发框架
+
+部署运维
+·node.js 部署和运维·Node cluster·nginx·pm2·docker容器部署
+
+
+Vue.js 2.6全家桶实战
+
+Vue入门
+·Vue官方脚手架 Vue-cli实战 Vue组件化实战·如何编写单文件组件· 如何编写高阶组件·如何编写高质量的 UI组件 ·前端模块系统初探·计算属性·表单处理·事件处理· ES6 Module   Vue模板语法 · Vue-devtools开发调试插件
+
+Vue组件库开发现代的UI页面
+·Vue组件化基础·Vue组件化通信机制·内容分发·递归组件Tree源码实现·组件混入技术·仿element-ui源码设计自己的表单组件 k-form·仿element-ui源码设计自己的弹窗组件·如何基于Element-ui封装自己的组件
+
+使用Vuex 数据管理
+·数据管理概念 ·Vuex是什么·核心概念之State· 核心概念之Getter· 核心概念之Mutation·核心组件之Module·核心组件之Action·数据流设计·数据持久化·Vue插件机制·手写Vuex源码·支持Vue.use·利用Vue响应式机制·挂载$store
+
+Vue-router实战单页SPA应用
+·路由管理·路由重定向·路由嵌套·路由守卫·路由懒加载·单页应用原理·history & hash 模式·vue路由守卫原理·手写自己的vue-router
+
+vue项目实战
+·大型项目设计架构·权限控制·配置详解·数据请求封装·数据mock·自动化测试·发布·部署
+
+typescript 在vue中实战
+·ts核心·强类型·基础类型·接口·泛型·ts在vue中的应用实战·装饰器原理与实践
+
+深入了解Vue响应式
+·模仿Vuejs实现一个迷你 MVMM框架·响应式机制·依赖收集·监听器管理·模板编译·数据双向绑定
+
+vue源码剖析
+·深入剖析vue源码·Vue源码目录分析·Vue源码入口· new Vue发生了什么·Vue初始化· Vue全局api 剖析·虚拟dom·模板编译 + 代码生成·Vue源码中优秀的设计理念·从Vue源码看 Vue3的未来
+
+
 
  
