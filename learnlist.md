@@ -255,7 +255,6 @@ git 远程仓库同步
 
 函数式编程：纯函数、函数柯里化、高阶函数
 bind 及 promise 源码解析
-EventLoop、宏任务、微任务
-
+EventLoop、宏任务、微任务.
 
  
