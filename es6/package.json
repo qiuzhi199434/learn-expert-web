@@ -1,0 +1,30 @@
+{
+  "name": "es6",
+  "version": "1.0.0",
+  "description": "es6 test",
+  "main": "base.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d lib -s",
+    "start": "webpack-dev-server --hot --config build/webpack.dev.js",
+    "build_sit": "webpack --config build/webpack.sit.js"
+  },
+  "author": "qiuzhi",
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "regenerator-runtime": "^0.13.5",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "webpack": "^4.43.0",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.2"
+  }
+}
