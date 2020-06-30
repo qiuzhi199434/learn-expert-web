@@ -14,7 +14,7 @@
 
 #babel 官方认为，把不稳定的 stage0-3 作为一种预设是不太合理的，@babel/preset-env、@babel/polyfill等只支持到stage-4级别，因此 babel 新版本废弃了 stage 预设，转而让用户自己选择使用哪个 proposal 特性的插件，这将带来更多的明确性（用户无须理解 stage，自己选的插件，自己便能明确的知道代码中可以使用哪个特性）。
 
-#babel-loader 7.x 对应 babel-cli 7.x  babel-core 7.x;    webpack 3.x  
+#babel-loader 7.x 对应 babel-cli 6.x  babel-core 6.x;    webpack 3.x  
 1.@babel/preset-env + @babel/polyfill可以转译语法、新 API，但存在污染全局问题
 2.@babel/preset-env + @babel/plugin-transform-runtime + @babel/runtime-corejs2，可按需导入，转译语法、新 API，且避免全局污染（babel7 中@babel/polyfill 是@babel/runtime-corejs2 的别名），但是检测不到'hello'.includes('h')这种句法；
 
