@@ -310,13 +310,13 @@ koa和egg 源码剖析
 Vue.js 2.6全家桶实战
 
 Vue入门
-·Vue官方脚手架 Vue-cli实战 Vue组件化实战·如何编写单文件组件· 如何编写高阶组件·如何编写高质量的 UI组件 ·前端模块系统初探·计算属性·表单处理·事件处理· ES6 Module   Vue模板语法 · Vue-devtools开发调试插件
+·Vue官方脚手架 Vue-cli实战Vue组件化实战·如何编写单文件组件· 如何编写高阶组件·如何编写高质量的 UI组件·前端模块系统初探·计算属性·表单处理·事件处理· ES6 Module Vue模板语法· Vue-devtools开发调试插件
 
 Vue组件库开发现代的UI页面
 ·Vue组件化基础·Vue组件化通信机制·内容分发·递归组件Tree源码实现·组件混入技术·仿element-ui源码设计自己的表单组件 k-form·仿element-ui源码设计自己的弹窗组件·如何基于Element-ui封装自己的组件
 
 使用Vuex 数据管理
-·数据管理概念 ·Vuex是什么·核心概念之State· 核心概念之Getter· 核心概念之Mutation·核心组件之Module·核心组件之Action·数据流设计·数据持久化·Vue插件机制·手写Vuex源码·支持Vue.use·利用Vue响应式机制·挂载$store
+·数据管理概念·Vuex是什么·核心概念之State·核心概念之Getter·核心概念之Mutation·核心组件之Module·核心组件之Action·数据流设计·数据持久化·Vue插件机制·手写Vuex源码·支持Vue.use·利用Vue响应式机制·挂载$store
 
 Vue-router实战单页SPA应用
 ·路由管理·路由重定向·路由嵌套·路由守卫·路由懒加载·单页应用原理·history & hash 模式·vue路由守卫原理·手写自己的vue-router
