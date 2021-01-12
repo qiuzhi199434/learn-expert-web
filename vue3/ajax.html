@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function addLoadEvent (func) {
+        let oldOnload = window.onload
+        if (typeof window.onload !== 'function') {
+            window.onload = func
+        }else {
+            window.onload = function () {
+                oldOnload()
+                func()
+            }
+        }
+    }
+
+    function getHttpObject () {
+        if (XMLHttpRequest)  return new XMLHttpRequest()
+        if (ActiveXObject) return new ActiveXObject()
+        throw new Error('浏览器不支持xhr对象')
+    }
+    function params (obj) {
+        var arr = []
+        for (var key in obj) {
+            arr.push(`${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`)
+        }
+        return arr.join('&')
+    }
+    function ajax ({ method = 'get', url, async = true, data = {}, success , error} = { }) {
+        let xhr = getHttpObject()
+        data = params(data)
+        if (async === true) {
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        success(xhr.responseText)
+                    }else {
+                        error(xhr)
+                    }
+                }
+            }
+        }
+        xhr.open(method, url, async)
+        if (method === 'get') {
+            xhr.send(null) 
+        } else {
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+            xhr.send(data)
+        }
+        if (async === false) {
+            if( xhr.status === 200 ) {
+                success(xhr.responseText)
+            }else {
+                error(xhr)
+            }
+        }
+    }
+    ajax({
+        method: 'get',
+        url: '../learnlist.md',
+        async: true,
+        success: function (msg) {
+            console.log(msg)
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+</script>
+</html>
