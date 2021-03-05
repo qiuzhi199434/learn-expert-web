@@ -265,3 +265,73 @@ console.log('/**-----------------Generator---------------- */')
   console.log(gen.next())
   console.log(gen)
 }
+
+
+// async function test () {
+//   let arr = [3,2,1]
+//   await Promise.all(arr.map( async (item) => {
+//    const res = await fetch(item)
+//     console.log(res)
+//   }))
+//   console.log('end')
+// }
+
+async function test () {
+  let arr = [1,2,3]
+  await arr.reduce( async (total, item) => {
+   const res = await fetch(item)
+    console.log(res)
+  }, '')
+  console.log('end')
+}
+
+// async function test () {
+//   let arr = [1,2,3]
+//   await arr.forEach( async (item) => {
+//    const res = await fetch(item)
+//     console.log(res)
+//   })
+//   console.log('end')
+// }
+
+// async function test () {
+//   let arr = [1, 2, 3]
+//   for (const item of arr) {
+//    const res = await fetch(item)
+//    console.log(res)
+//   }
+//   console.log('end')
+// }
+
+
+function fetch(x) {
+  return new Promise((resolve, reject) => {
+    setTimeout(()=>{
+      resolve(x)
+    },x*1000)
+  })
+ }
+
+ test()
+
+ console.log(Object.values)
+
+
+ class Counter {
+constructor() {
+  this.count = 0;
+}
+
+increment() {
+  this.count++;
+}
+}
+
+const counterOne = new Counter();
+counterOne.increment();
+counterOne.increment();
+
+const counterTwo = counterOne;
+counterTwo.increment();
+
+console.log(counterOne.count);
