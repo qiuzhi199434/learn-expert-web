@@ -14,3 +14,24 @@ const preventDefault = function (e:Event) {
     e.preventDefault()
   }
 }
+
+
+/**js实现map方法 */
+Array.prototype.forkmap = function (fn, thisArg) {
+  const arr = this
+  const result = []
+  for (let i=0; i < arr.length; i++) {
+    result.push(fn.call(thisArg, arr[i], i, arr))
+  }
+  return result
+}
+
+Array.prototype.forkmap2 = function (fn, thisArg) {
+  const result:any[] = []
+  this.reduce(function (pre, cur, index, arr) {
+    result.push(fn.call(thisArg, cur, index, arr))
+  }, [])
+  return result
+}
+
+console.log(Array.prototype.push.call([],1, 2, 3))

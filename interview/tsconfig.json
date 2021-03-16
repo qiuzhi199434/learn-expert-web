@@ -16,7 +16,8 @@
       ]
     },
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "/interview/*.ts"
     ],
     "exclude": ["node_modules", "dist", "/interview/build"]
 }
