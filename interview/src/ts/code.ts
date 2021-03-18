@@ -147,9 +147,39 @@ const preventDefault = function (e:Event) {
 
 
 /**js 插入大量dom优化，渲染1万条数据 */
-const renderList = () => {
-
+const renderList = (el:HTMLElement, data: string|number[]) => {
+  const totalNum = data.length
+  const pageSize = 200
+  const pageCount = Math.ceil(totalNum/pageSize)
+  for (let i =0; i < pageCount; i++) {
+    let list:string|number[] = []
+    if (pageSize*(i+1) <= totalNum) {
+      list = data.slice(i*pageSize, pageSize*(i+1))
+    }else{
+      list = data.slice(i*pageSize)
+    }
+    window.requestAnimationFrame(()=>{
+      loop(el,list)
+    })
+  }
 }
+const loop = (el:HTMLElement, data: string | any[]) => {
+  const Fargment = document.createDocumentFragment()
+  for (let i = 0; i<data.length; i++) {
+    const li = document.createElement('li')
+    li.innerText = data[i]
+    Fargment.appendChild(li)
+  }
+  el.appendChild(Fargment)
+}
+const app:any = document.getElementById('app')
+const data = Array.from(new Array(999), (item,index)=>{return index})
+renderList(app, data)
+
+
+/**原型链 */
+
+
 
 
 
