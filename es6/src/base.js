@@ -31,10 +31,6 @@ console.log(`now global is ${getGlobal()}`)
 function f() { console.log('I am outside!') }
 
 (function () {
-  if (false) {
-    // 重复声明一次函数f
-    let f = function () { console.log('I am inside!') }
-  }
 
   f()
 }())
@@ -265,3 +261,28 @@ console.log('/**-----------------Generator---------------- */')
   console.log(gen.next())
   console.log(gen)
 }
+
+const arry = [ 
+  {number: 5, value: 30},
+  {number: 20, value: 15},
+  {number: 50, value: 10}
+]
+
+function sum (number, arry) {
+  let index = 0
+  for (let i = 0; i < arry.length; i++) {
+    if (number < arry[i].number) {
+      index = i - 1
+      break
+    }
+  }
+  const cha = (number - arry[index].number)
+  const initValue = cha * (arry[index+1].value)
+  return arry.reduce(function(pre,cur,indexs){
+    if (index >= indexs) {
+      return pre + cur.number*cur.value
+    } else {
+      return pre
+    }
+  }, initValue)
+}; console.log(sum(5,arry))
