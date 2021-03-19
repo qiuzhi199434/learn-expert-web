@@ -335,3 +335,67 @@ const counterTwo = counterOne;
 counterTwo.increment();
 
 console.log(counterOne.count);
+
+
+const data = {
+  name: 0, 
+  children:[
+    {name: 1, children: [{name: '1-1'},{name:'1-2'}]},
+    {name: 2, children: [{name: '2-1'},{name:'2-2'}]}, 
+    {name: 3, children: [{name: '3-1'},{name:'3-2'}]}
+  ]
+}
+let deepTraversal1 = (node, nodeList = []) => {
+  if (node !== null) {
+    nodeList.push(node)
+    let children = node.children
+    console.log(children)
+    if (!children) return
+    for (let i = 0; i < children.length; i++) {
+      deepTraversal1(children[i], nodeList)
+    }
+  }
+  return nodeList
+};  
+console.log(deepTraversal1(data, []))
+
+const deepTraversal3 = (node) => {
+
+}
+
+console.log('1');
+async function async1() {
+    console.log('2');
+    await async2();
+    console.log('3');
+}
+async function async2() {
+    console.log('4');
+}
+
+process.nextTick(function() {
+    console.log('5');
+})
+
+setTimeout(function() {
+    console.log('6');
+    process.nextTick(function() {
+        console.log('7');
+    })
+    new Promise(function(resolve) {
+        console.log('8');
+        resolve();
+    }).then(function() {
+        console.log('9')
+    })
+})
+
+async1();
+
+new Promise(function(resolve) {
+    console.log('10');
+    resolve();
+}).then(function() {
+    console.log('11');
+});
+console.log('12');
