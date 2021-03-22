@@ -1,4 +1,5 @@
 /**手写new过程 */
+console.log('######手写new start#####')
 const my_new = function (fn:any, ...arg:any[]) {
   const obj = Object.create(fn.prototype)
   const result = fn.call(obj, ...arg)
@@ -14,6 +15,7 @@ person.prototype.eat = function () {
 const person1 = my_new(person, 'daidai', 20)
 
 console.log(person1)
+console.log('######手写new end#####')
 
 /**js实现map方法 */
 Array.prototype.forkmap = function (fn, thisArg) {
@@ -178,10 +180,114 @@ renderList(app, data)
 
 
 /**原型链 */
+console.log('######prototype start#####')
+const cat = function (this:any, bradn:string) {
+  this.brand = bradn
+}
+cat.prototype.run = function () {
+  console.log(`${this.brand}跑的很快`)
+}
+const bmw = new (cat as any)('bmw')
+console.log(bmw.__proto__ === cat.prototype)
+console.log(Object.getPrototypeOf(bmw) === cat.prototype)
+console.log(cat.prototype.constructor === cat)
+console.log(cat.prototype.__proto__ === Object.prototype)
+console.log(Object.prototype.constructor === Object)
+console.log((Object.prototype as any).__proto__ === null)
+
+console.log('######prototype end#####')
 
 
+/** typescript泛型的理解，内置方法的具体实现，具体怎么实现的
+ * 泛型是ts中创建可复用代码组件的工具，这个组件不是只能被一种类型使用，而是能被多种类型复用。
+ * 类似于参数的作用。
+ * 泛型是增强类，类型，接口可靠的手段。
+ * keyof 能够取得 key
+ */
+type myPartial<T> = { [K in keyof T]?: T[K] }
 
 
+/**promise then怎么实现的链式调用，
+ * 怎么优雅的实现链式调用，一个类，
+ * 怎么去添加链式调用方法 */
+ console.log('######promise start#####')
+
+
+/**await 后面跟promsie 如果直接rejetc不catch的话是会直接报错，不执行下面的代码的  */
+ async function test () {
+  console.log('1')
+  await new Promise((resolve, reject) => {
+    reject(2)
+  }).catch(err=>console.log(err))
+  console.log('2')
+}
+test()
+
+/**手写promise */
+const PENDING = 'PENDING'
+const FULFILLED = 'FULFILLED'
+const REJECTED = 'REJECTED'
+class myPromise {
+  private status: string
+  private value: undefined | string
+  private reason: undefined | string
+  private resolveCallbacks: Array<Function>
+  private rejectCallbacks: Array<Function>
+  constructor (executor:any) {
+    this.status = PENDING
+    this.value = undefined
+    this.reason = undefined
+    this.resolveCallbacks = []
+    this.rejectCallbacks = []
+    const resolve = (value:any) => {
+      if (this.status === PENDING) {
+        this.status = FULFILLED
+        this.value = value
+        this.resolveCallbacks.forEach(fn => fn())
+      }
+    }
+    const reject = (reason:any) => {
+      if (this.status === PENDING) {
+        this.status = REJECTED
+        this.reason = reason
+        this.rejectCallbacks.forEach(fn => fn())
+      }
+    }
+    try {
+      executor(resolve, reject)
+    }catch(err) {
+      reject(err)
+    }
+  }
+
+  then (onResolve?:Function, onReject?:Function) {
+    const onResolves = typeof onResolve === 'function' ? onResolve : (v:any) => v
+    const onRejects = typeof onReject === 'function' ? onReject : (err:any) => {throw err}
+    if(this.status === FULFILLED) {
+      onResolves(this.value)
+    }
+    if (this.status === REJECTED) {
+      onRejects(this.reason)
+    }
+    if (this.status === PENDING) {
+      this.resolveCallbacks.push(()=>{
+        onResolves(this.value)
+      })
+      this.rejectCallbacks.push(()=>{
+        onRejects(this.reason)
+      })
+    }
+  }
+}
+
+const a = new myPromise((reslove:any, reject:any)=>{
+  setTimeout(()=>{
+    reslove('promise12')
+  },3000)
+})
+a.then((data:any)=>console.log(data))
+
+console.log('######promise end#####')
 
 /** 用递归的方法实现fibonicc(n)函数，输入数字n,输出波菲那契数列第n项数字，并给该函数加缓存功能 */
 const fibonicc = (n:number):number => {
@@ -193,3 +299,5 @@ const fibonicc2= (n:number, res1 = 1, res2 = 1):number => {
   if (n<=2) return res2
   return fibonicc2(n-1, res1, res1+ res2)
 }
+
+
