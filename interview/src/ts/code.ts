@@ -227,13 +227,13 @@ test()
 const PENDING = 'PENDING'
 const FULFILLED = 'FULFILLED'
 const REJECTED = 'REJECTED'
-class myPromise {
+class _Promise {
   private status: string
-  private value: undefined | string
-  private reason: undefined | string
+  private value: string | undefined
+  private reason: string | undefined
   private resolveCallbacks: Array<Function>
   private rejectCallbacks: Array<Function>
-  constructor (executor:any) {
+  constructor (executor:Function) {
     this.status = PENDING
     this.value = undefined
     this.reason = undefined
@@ -241,9 +241,9 @@ class myPromise {
     this.rejectCallbacks = []
     const resolve = (value:any) => {
       if (this.status === PENDING) {
-        this.status = FULFILLED
-        this.value = value
-        this.resolveCallbacks.forEach(fn => fn())
+       this.status = FULFILLED
+       this.value = value
+       this.resolveCallbacks.forEach(fn => fn())
       }
     }
     const reject = (reason:any) => {
@@ -255,37 +255,104 @@ class myPromise {
     }
     try {
       executor(resolve, reject)
-    }catch(err) {
+    }catch (err) {
       reject(err)
     }
   }
 
-  then (onResolve?:Function, onReject?:Function) {
+  private resolvePromise (_promise:any, callback:any, reslove:Function, reject:Function) {
+    if (_promise === callback) return reject(new TypeError('不能循环调用promise'))
+    let called = false
+    if (typeof callback === 'object' && callback !== null || typeof callback === 'function') {
+      try {
+        let then = callback.then()
+        if (typeof then === 'function') {
+          then.call(callback, (r:any)=>{
+            if (called) return
+            called = true
+            this.resolvePromise(_promise, r, reslove, reject)
+          }, (e:any)=>{
+            if (called) return
+            called = true
+            reject(e)
+          })
+        }else {
+          reslove (callback)
+        }
+      }catch (e) {
+        if (called) return
+        called = true
+        reject(e)
+      }
+    } else {
+      reslove(callback)
+    }
+  }
+
+  then (onResolve?:any, onReject?:any) {
     const onResolves = typeof onResolve === 'function' ? onResolve : (v:any) => v
     const onRejects = typeof onReject === 'function' ? onReject : (err:any) => {throw err}
-    if(this.status === FULFILLED) {
-      onResolves(this.value)
-    }
-    if (this.status === REJECTED) {
-      onRejects(this.reason)
-    }
-    if (this.status === PENDING) {
-      this.resolveCallbacks.push(()=>{
-        onResolves(this.value)
-      })
-      this.rejectCallbacks.push(()=>{
-        onRejects(this.reason)
-      })
-    }
+    const _promise2 = new _Promise ((resolve:any, reject:any) => {
+      if (this.status === PENDING) {
+        this.resolveCallbacks.push(()=> {
+          setTimeout(() => {
+            try {
+              const callback = onResolves(this.value)
+              this.resolvePromise(_promise2, callback, resolve, reject)
+            }catch (e) {
+              reject(e)
+            }
+          })
+        })
+
+        this.rejectCallbacks.push(()=>{
+          setTimeout(() => {
+            try {
+              const callback = onRejects(this.status)
+              this.resolvePromise(_promise2, callback, resolve, reject)
+            }catch (e) {
+              reject(e)
+            }
+          })
+        })
+      }
+
+      if (this.status === FULFILLED) {
+        setTimeout(() => {
+          try {
+            let callback = onResolves(this.value)
+            this.resolvePromise(_promise2, callback, resolve, reject)
+          } catch (e) {
+            reject(e)
+          }
+        })
+      }
+
+      if (this.status === REJECTED) {
+        setTimeout(() => {
+          try {
+            let callback = onRejects(this.reason)
+            this.resolvePromise(_promise2, callback, resolve, reject)
+          } catch (e) {
+            reject(e)
+          }
+        })
+      }
+    })
+    return _promise2
   }
 }
 
-const a = new myPromise((reslove:any, reject:any)=>{
-  setTimeout(()=>{
-    reslove('promise12')
-  },3000)
+const b = new _Promise((resolve:any, reject:any)=>{
+  setTimeout(() => {
+    resolve('_promise 666666')
+  })
 })
-a.then((data:any)=>console.log(data))
+
+b.then((data: any) => {return data}).then((data:any) => {
+  console.log(data)
+})
+
 
 console.log('######promise end#####')
 
