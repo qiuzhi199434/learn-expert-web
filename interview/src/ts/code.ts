@@ -212,6 +212,29 @@ type myPartial<T> = { [K in keyof T]?: T[K] }
  * 怎么去添加链式调用方法 */
  console.log('######promise start#####')
 
+ // promise能实现链式调用的原因是因为then方法返回的就是一个promise
+ class Sum {
+   [prop: string]: any
+   value = 1
+   add () {
+     this.value++
+     return this
+   }
+   subtract () {
+     this.value --
+     return this
+   }
+   addMethod (name: string, fn:Function) {
+    this[name] = fn
+    return this
+   }
+ }
+ const sum = new Sum()
+sum.addMethod('haha', function(this:any){
+  console.log('我是动态添加方法---haha')
+  return this
+})
+console.log('实现链式调用----',sum.haha().add().add().value)
 
 /**await 后面跟promsie 如果直接rejetc不catch的话是会直接报错，不执行下面的代码的  */
  async function test () {
@@ -355,6 +378,8 @@ b.then((data: any) => {return data}).then((data:any) => {
 
 
 console.log('######promise end#####')
+
+/** async/await 实现原理 */
 
 /** 用递归的方法实现fibonicc(n)函数，输入数字n,输出波菲那契数列第n项数字，并给该函数加缓存功能 */
 const fibonicc = (n:number):number => {

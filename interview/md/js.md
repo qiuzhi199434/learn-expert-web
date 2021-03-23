@@ -18,7 +18,7 @@
 
 10. 手写promise
 
-11. async/实现原理await
+11. async/await 实现原理
 
 12. 数组合并方法
 
