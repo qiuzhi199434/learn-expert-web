@@ -381,6 +381,23 @@ console.log('######promise end#####')
 
 /** async/await 实现原理 */
 
+/**数组合并方法 */
+const arryA = [ 1, 2 ,3]
+const arryB = [5, 6]
+
+console.log(arryA.concat(arryB))
+
+console.log([...arryA, ...arryB])
+
+Array.prototype.push.apply(arryA, arryB)
+
+// for (let i of arryB) {
+//   arryA.push(i)
+// }
+console.log(arryA)
+
+
+
 /** 用递归的方法实现fibonicc(n)函数，输入数字n,输出波菲那契数列第n项数字，并给该函数加缓存功能 */
 const fibonicc = (n:number):number => {
   if (n <= 2) return 1
@@ -392,4 +409,69 @@ const fibonicc2= (n:number, res1 = 1, res2 = 1):number => {
   return fibonicc2(n-1, res1, res1+ res2)
 }
 
+/**  实现一个函数，用于计算用户一个月共计交费多少港元 */
+class Count {
+  private ratesList = [
+    { number: 5, price: 30 },
+    { number: 20, price: 15 },
+    { number: 50, price: 10 },
+    { number: 100, price: 9 },
+    { number: 500, price: 8 },
+    { number: 1000, price: 7 },
+    { number: 2000, price: 6 },
+    { number: 3000, price: 5 },
+    { number: 4000, price: 4 },
+    { number: 5000, price: 3 },
+    { number: 6000, price: 2 },
+    { number: 6001, price: 1 }
+  ]
+  sum (number = 0) {
+    let level = 0
+    for (let i = 0; i < this.ratesList.length; i++) {
+      if (number <= this.ratesList[i].number) {
+        level = i
+        break
+      }
+    }
+    const cha = level > 0 ? number - this.ratesList[level-1].number : number
+    const inintValue = cha * this.ratesList[level].price
+    return this.ratesList.reduce((pre:any, cur, index, arr)=>{
+      if (level > index) {
+          const num = index > 0 ? cur.number - (arr[index -1].number) : cur.number
+          return pre + num * cur.price
+      }else {
+        return pre
+      }
+    },inintValue)
+  }
+}
+
+const count = new Count()
+console.log(count.sum(6001))
+
+/**下列执行顺序
+ * 执行let date
+ * 运行setTimeout函数，放入宏任务队列（此处描述可以加入event loop机制）
+ * let a = 0
+ * 执行while 此时 new Date - date 是会类型转换，找到date的valueOf属性，获取原始值
+ * 当 > 3000后 执行上面宏任务队列输出 new Date() - date
+ */
+let date:any = new Date()
+setTimeout(()=>{
+  console.log(new Date() as any - date)
+}, 1000)
+let a = 0
+while((new Date() as any-date) < 3000){
+  a++;
+}
+
+/** 如何改变能够按期望输出0 1 2 3 4，为什么
+ * 把下面的var i 改成 let i
+ * 这样就会形成一个块级作用域（顺带讲下es6以前的作用域概念）
+ */
+for (var i = 0; i < 5; i++) {
+    setTimeout(function() {
+      console.log(i);
+    }, i * 1000);
+}
 
