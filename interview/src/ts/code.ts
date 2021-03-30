@@ -475,3 +475,31 @@ for (var i = 0; i < 5; i++) {
     }, i * 1000);
 }
 
+/** 原型继承和class继承的区别
+ * 1.原型继承共享属性 class不会
+ *
+ */
+ function inherit(SubType:any, SuperType:any) {
+  let proto = Object.create(SuperType.prototype);
+  proto.constructor = SubType  // 修复构造函数指向
+  SubType.prototype = proto
+  console.log(proto)
+}
+function Super(this:any, name:any) {
+  this.name = name
+  this.friends = ['nnn']
+}
+Super.prototype.fun1 = function() {}
+Super.prototype.fun2 = function() {}
+function Sub(this:any, name:any) {
+  this.hobby = 'hhh'
+  Super.call(this, name)
+}
+inherit(Sub, Super) // 核心
+Sub.prototype.fun11 = function() {
+  console.log('fun11')
+}
+let sub1 = new (Sub as any)('xql')
+console.log(sub1);
+
+
