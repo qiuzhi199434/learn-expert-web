@@ -72,7 +72,7 @@ for (var i = 0; i < 5; i++) {
 
 21. 实现一个观察者类observe
 
-22. Map 和WeakMap的区别,跟对象的区别
+22. Map 和 WeakMap的区别,跟对象的区别
 
 23. for in 和 for of的区别
 
