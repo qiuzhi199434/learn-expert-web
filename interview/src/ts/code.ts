@@ -479,6 +479,7 @@ for (var i = 0; i < 5; i++) {
  * 1.原型继承共享属性 class不会
  *
  */
+// 寄生组合模式
  function inherit(SubType:any, SuperType:any) {
   let proto = Object.create(SuperType.prototype);
   proto.constructor = SubType  // 修复构造函数指向
