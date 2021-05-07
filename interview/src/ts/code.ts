@@ -504,3 +504,71 @@ let sub1 = new (Sub as any)('xql')
 console.log(sub1);
 
 
+class Adder {
+  constructor (public a: number) {
+  }
+  add = (b: number): number => {
+    return this.a + b
+  }
+}
+
+class Child extends Adder {
+  // private superAdd  = this.add
+  // add = (b: number):number => {
+  //   return this.superAdd(b)
+  // }
+  callAdd (b: number) {
+    return this.add(b)
+  }
+}
+console.log(Child)
+const child = new Child(1234)
+console.log(child.callAdd(123))
+
+
+class Component {
+  constructor (public name: string) {}
+}
+class Component2 {
+  constructor (name: string) {}
+}
+console.log(new Component('aa'), new Component2('aa'))
+
+class Frame implements IterableIterator<Component> {
+  private pointer = 0
+  constructor (public name: string, public components: Component[]) {}
+  [Symbol.iterator] () :IterableIterator<Component> {
+    return this
+  }
+  next(): IteratorResult<Component> {
+    if (this.pointer < this.components.length) {
+      return {
+        done: false,
+        value: this.components[this.pointer++]
+      }
+    } else {
+      return {
+        done: true,
+        value: null
+      }
+    }
+
+  }
+}
+
+let frame = new Frame('door', [
+  new Component('top'),
+  new Component('right'),
+  new Component('bottom'),
+  new Component('left')
+])
+
+for ( let cmp of frame) {
+  console.log(cmp)
+}
+
+console.log(frame.next(), frame.next())
+
+
+
+
