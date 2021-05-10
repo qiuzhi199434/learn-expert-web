@@ -569,6 +569,42 @@ for ( let cmp of frame) {
 
 console.log(frame.next(), frame.next())
 
+class fib implements IterableIterator<number> {
+  protected fn1 = 0
+  protected fn2 = 1
+  constructor (protected maxValue?: number) {}
+  [Symbol.iterator](): IterableIterator<number> {
+    return this
+  }
+  public next(): IteratorResult<number> {
+    var current = this.fn1
+    this.fn1 = this.fn2
+    this.fn2 = current + this.fn1
+    if (this.maxValue != null && current >= this.maxValue) {
+      return {
+        done: true,
+        value: null
+      }
+    }
+    return {
+      done: false,
+      value: current
+    }
+  }
+}
+
+const fibMax20 = new fib(20)
+console.log(Array.from(fibMax20))
+
+const promiseArray = [Promise.resolve(3), Promise.resolve(4)]
+const p = Promise.race(promiseArray)
+console.log(p)
+
+setTimeout(()=>{
+  console.log('this stack is now empty')
+  console.log(p)
+})
+
 
 
 
