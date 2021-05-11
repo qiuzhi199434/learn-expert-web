@@ -393,3 +393,9 @@ new Promise(function(resolve) {
     console.log('11');
 });
 console.log('12');
+
+const test2 = (obj) => {
+  console.log(obj?.name, obj.ages?.tody, obj.age?.name)
+}
+
+test2({name: 123, age: 27})
