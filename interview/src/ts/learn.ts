@@ -222,7 +222,7 @@ let bars: Bar
 // 捕获变量的类型
 // 捕获类成员的类型
 class Foo2 {
-  foo: number = 2
+  foo!: number
 }
 
 declare let _foo2: Foo2

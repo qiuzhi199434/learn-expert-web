@@ -5,6 +5,8 @@
     "eslint.format.enable": true,
     "eslint.validate":[
         "javascript",
+        // "javascriptreact",
+        // "typescript",
         "vue",
         "html"
     ]

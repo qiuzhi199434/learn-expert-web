@@ -290,7 +290,7 @@ class _Promise {
     let called = false
     if (typeof callback === 'object' && callback !== null || typeof callback === 'function') {
       try {
-        let then = callback.then()
+        const then = callback.then()
         if (typeof then === 'function') {
           then.call(callback, (r:any)=>{
             if (called) return
@@ -345,7 +345,7 @@ class _Promise {
       if (this.status === FULFILLED) {
         setTimeout(() => {
           try {
-            let callback = onResolves(this.value)
+            const callback = onResolves(this.value)
             this.resolvePromise(_promise2, callback, resolve, reject)
           } catch (e) {
             reject(e)
@@ -356,7 +356,7 @@ class _Promise {
       if (this.status === REJECTED) {
         setTimeout(() => {
           try {
-            let callback = onRejects(this.reason)
+            const callback = onRejects(this.reason)
             this.resolvePromise(_promise2, callback, resolve, reject)
           } catch (e) {
             reject(e)
@@ -458,7 +458,7 @@ console.log(count.sum(6001))
  * 执行while 此时 new Date - date 是会类型转换，找到date的valueOf属性，获取原始值
  * 当 > 3000后 执行上面宏任务队列输出 new Date() - date
  */
-let date:any = new Date()
+const date:any = new Date()
 setTimeout(()=>{
   console.log(new Date() as any - date)
 }, 1000)
@@ -483,7 +483,7 @@ for (var i = 0; i < 5; i++) {
  */
 // 寄生组合模式
  function inherit(SubType:any, SuperType:any) {
-  let proto = Object.create(SuperType.prototype);
+  const proto = Object.create(SuperType.prototype);
   proto.constructor = SubType  // 修复构造函数指向
   SubType.prototype = proto
   console.log(proto)
@@ -502,7 +502,7 @@ inherit(Sub, Super) // 核心
 Sub.prototype.fun11 = function() {
   console.log('fun11')
 }
-let sub1 = new (Sub as any)('xql')
+const sub1 = new (Sub as any)('xql')
 console.log(sub1);
 
 
