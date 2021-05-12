@@ -235,6 +235,48 @@ let bar2: typeof _foo2.foo
 // 捕获键的名称  keyof
 
 
+// 名义化类型
+
+// 1. 字面量类型
+
+type Id<T extends String>  = {
+  type: T,
+  value: number
+}
+
+type ZCard = Id<'zhangsan'>
+type LCard = Id<'lisi'>
+
+let creatZ = (card: number): ZCard => ({
+  type: 'zhangsan',
+  value: card
+})
+
+let creatL = (card: number): LCard => ({
+  type: 'lisi',
+  value: card
+})
+
+// console.log(creatZ === creatL)
+
+// 2. 枚举与结构化结合
+// 缺点：number类型和enum是兼容的，不能处理他们
+enum FooIdBarnd {}
+type FooId = FooIdBarnd & string
+
+let foo3!: FooId
+
+enum BarIdBarnd {}
+type BarId = BarIdBarnd & string
+let bar3!: BarId
+
+// 3. 接口
+
+
+
+
+
+
 
 
 
