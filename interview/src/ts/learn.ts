@@ -278,12 +278,3 @@ class Foo4<T> {
 }
 
 const FooNumber = Foo4 as { new (): Foo4<number>}
-
-
-
-
-
-
-
-
-
