@@ -273,6 +273,13 @@ let bar3!: BarId
 // 3. 接口
 
 
+class Foo4<T> {
+  foo!: T
+}
+
+const FooNumber = Foo4 as { new (): Foo4<number>}
+
+
 
 
 
