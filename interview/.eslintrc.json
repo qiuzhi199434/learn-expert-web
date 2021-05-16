@@ -2,15 +2,16 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint"],
-   //  "parserOptions": {
-   //     "project": "./tsconfig.json"
-   //  },
+    "parserOptions": {
+       "project": "./interview/tsconfig.json"
+    },
     "extends": [
        "eslint:recommended",
        "plugin:@typescript-eslint/eslint-recommended",
        "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-       "indet": [2, 2]
+       "@typescript-eslint/explicit-function-return-type": "off",
+       "indent": [2, 2]
     }
 }
