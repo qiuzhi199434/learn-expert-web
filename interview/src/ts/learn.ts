@@ -154,8 +154,8 @@ interface NewTostring {
   new () : string
 }
 
-declare const Foo:NewTostring
-const bar = new Foo()
+// declare const Foo:NewTostring
+// const bar = new Foo()
 
 interface Test {
   bar: string,
@@ -180,15 +180,15 @@ interface Callback {
 const immediate = (callback: Callback) => {
   callback()
 }
-if (typefoo.bar) { // 类型假设   回调中不一定有效
-  console.log(typefoo.bar.baz)
-  const bar = typefoo.bar
-  immediate( ()=> {
-    // 此处不能直接获取typefoo.bar.baz
-    // ts不能假设类型保护在回调中一直有效
-    console.log(bar.baz)
-  })
-}
+// if (typefoo.bar) { // 类型假设   回调中不一定有效
+//   console.log(typefoo.bar.baz)
+//   const bar = typefoo.bar
+//   immediate( ()=> {
+//     // 此处不能直接获取typefoo.bar.baz
+//     // ts不能假设类型保护在回调中一直有效
+//     console.log(bar.baz)
+//   })
+// }
 
 // 字面量类型
 const iTakeFoo = (foo: 'foo') => {
@@ -272,9 +272,41 @@ let bar3!: BarId
 
 // 3. 接口
 
-
-class Foo4<T> {
-  foo!: T
+// 状态函数
+class TestStatic {
+  static person:string = 'zhangsan'
+  static getName = () => {
+    return TestStatic.person
+  }
 }
 
-const FooNumber = Foo4 as { new (): Foo4<number>}
+console.log(TestStatic.getName())
+
+// 泛型的实例化类型
+class Foo<T> {
+  foo!: T
+}
+const FooNumber = Foo as { new ():Foo<number> }
+const FooNumber2 = new Foo<number>()
+console.log(FooNumber, FooNumber2)
+
+function id<T> (x:T) {
+  return x
+}
+
+const idNum = id as { (x:number): number }
+console.log(idNum)
+
+// 单例模式
+class Singleton {
+  private static instance: Singleton
+  private constructor () {}
+  public static getInstance () {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton()
+    }
+    return Singleton.instance
+  }
+}
+
+console.log(Singleton.getInstance())
