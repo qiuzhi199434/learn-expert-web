@@ -6,12 +6,13 @@ interface AllFileModule {
 
 const importAll = (ctx:any)=> {
   const allFileModule:AllFileModule = {}
-  for (const key of ctx.keys()) {
-    const keyArr: string[] = key.split('/')
+  return ctx.keys().reduce((acc:AllFileModule, path: string) => {
+    const keyArr: string[] = path.split('/')
     keyArr.shift()
-    allFileModule[keyArr.join('.').replace(/\.ts$/g, '')] = ctx(key)
-  }
-  return allFileModule
+    const moduleName = keyArr.join('.').replace(/\.ts$/g, '')
+    acc[moduleName] = ctx(path)
+    return acc
+  }, {})
 }
 
 const allJs = importAll(ctx)
