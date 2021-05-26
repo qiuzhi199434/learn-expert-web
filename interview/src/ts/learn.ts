@@ -309,4 +309,4 @@ class Singleton {
   }
 }
 
-console.log(Singleton.getInstance())
+console.log(Singleton.getInstance(), 2)
